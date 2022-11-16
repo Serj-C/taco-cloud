@@ -31,6 +31,7 @@ public class TacoOrder {
     @NotBlank(message = "Zip code is required")
     private String deliveryZip;
 
+    // Example Valid CC Number: 4100000000000001
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;
 
