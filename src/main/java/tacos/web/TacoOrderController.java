@@ -26,13 +26,13 @@ public class TacoOrderController {
 
     @GetMapping("/current")
     public String orderForm() {
-        return "orderForm";
+        return "order-form";
     }
 
     @PostMapping
     public String processOrder(@Valid TacoOrder tacoOrder, Errors errors, SessionStatus sessionStatus) {
         if (errors.hasErrors()) {
-            return "orderForm";
+            return "order-form";
         }
 
         tacoOrderRepo.save(tacoOrder);
