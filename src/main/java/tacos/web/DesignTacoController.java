@@ -15,9 +15,7 @@ import tacos.data.TacoRepository;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -33,21 +31,21 @@ public class DesignTacoController {
         this.tacoRepo = tacoRepo;
     }
 
-    @GetMapping
-    public String showDesignForm(Model model) {
+    @ModelAttribute
+    public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(ingredients::add);
 
-        Type[] types = Ingredient.Type.values();
+        log.info(ingredients.toString());
+
+        Type[] types = Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
-
-        return "design";
     }
 
     @ModelAttribute(name = "tacoOrder")
-    public TacoOrder tacoOrder() {
+    public TacoOrder order() {
         return new TacoOrder();
     }
 
@@ -56,15 +54,18 @@ public class DesignTacoController {
         return new Taco();
     }
 
+    @GetMapping
+    public String showDesignForm() {
+        return "design";
+    }
+
     @PostMapping
-    public String processDesign(@Valid Taco taco, Errors errors,
-                              @ModelAttribute TacoOrder tacoOrder) {
+    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
         if (errors.hasErrors()) {
-           return "design";
+            return "design";
         }
 
-        Taco savedTaco = tacoRepo.save(taco);
-        tacoOrder.addTaco(savedTaco);
+        tacoOrder.addTaco(taco);
 
         log.info("Processing taco: " + taco);
 
@@ -75,7 +76,6 @@ public class DesignTacoController {
         return ingredients
                 .stream()
                 .filter(ingredient -> ingredient.getType().equals(type))
-                .collect(Collectors.toList());
+                .toList();
     }
-
 }

@@ -1,19 +1,15 @@
 package tacos;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import tacos.Ingredient.Type;
 import tacos.data.IngredientRepository;
-import tacos.data.TacoOrderRepository;
+import tacos.data.OrderRepository;
 import tacos.data.TacoRepository;
 import tacos.web.DesignTacoController;
 
@@ -42,7 +38,7 @@ class DesignTacoControllerTest {
     private TacoRepository tacoRepository;
 
     @MockBean
-    private TacoOrderRepository tacoOrderRepository;
+    private OrderRepository orderRepository;
 
     @BeforeEach
     void setUp() {
@@ -92,9 +88,6 @@ class DesignTacoControllerTest {
 
     @Test
     void processDesign() throws Exception {
-        when(tacoRepository.save(taco))
-                .thenReturn(taco);
-
         mockMvc.perform(post("/design")
                 .content("name=Test+Taco&ingredients=FLTO,GRBF,CHED")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))

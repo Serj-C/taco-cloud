@@ -15,7 +15,7 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HomePageBrowserTest {
+class HomePageBrowserTest {
     @LocalServerPort
     private int port;
     private static WebDriver webDriver;

@@ -2,3 +2,10 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
+  jpa:
+    hibernate:
+      ddl-auto: create-drop #none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

@@ -83,7 +83,7 @@ class DesignAndOrderTacosBrowserTest {
         fillField("input#deliveryZip", "90011");
         fillField("input#ccNumber", "4111111111111111");
         fillField("input#ccExpiration", "12/22");
-        fillField("input#ccCVV", "123");
+        fillField("input#ccCvv", "123");
         webDriver.findElement(By.cssSelector("form")).submit();
     }
 
@@ -117,7 +117,7 @@ class DesignAndOrderTacosBrowserTest {
         fillField("input#deliveryZip", "8");
         fillField("input#ccNumber", "1234432112344322");
         fillField("input#ccExpiration", "14/91");
-        fillField("input#ccCVV", "1234");
+        fillField("input#ccCvv", "1234");
         webDriver.findElement(By.cssSelector("form")).submit();
 
         assertThat(webDriver.getCurrentUrl()).isEqualTo(orderDetailsPageUrl());
