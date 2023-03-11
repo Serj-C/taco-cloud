@@ -1,4 +1,7 @@
 spring:
+  output:
+    ansi:
+      enabled: ALWAYS
   datasource:
     generate-unique-name: false
     name: tacocloud
